@@ -41,4 +41,13 @@ public class Packet {
 		
 		return output;
 	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public String get(String string) {
+		// TODO Auto-generated method stub
+		return data.get(string);
+	}
 }

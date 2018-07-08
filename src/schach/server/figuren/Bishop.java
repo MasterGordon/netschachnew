@@ -2,13 +2,13 @@ package schach.server.figuren;
 
 import schach.server.Brett;
 
-public class Bishop extends Figur{
+public class Bishop extends Figur {
 
 	public Bishop(int x, int y, Brett brett) {
 		super(x, y, brett);
 		symbol = 'B';
 	}
-	
+
 	@Override
 	public boolean bewegungErlaubt(int x, int y) {
 		if (brett.figuren[x][y] != null) {
@@ -22,10 +22,10 @@ public class Bishop extends Figur{
 			dy = dy / Math.abs(dy);
 			int i = this.x;
 			int j = this.y;
-			while(i > 0 && i < 7&&j > 0 && j < 7) {
-				if(i==x&&j==y)
+			while (i > 0 && i < 7 && j > 0 && j < 7) {
+				if (i == x && j == y)
 					return true;
-				if(brett.figuren[i][j]!=null) {
+				if (brett.figuren[i][j] != null) {
 					return false;
 				}
 				i += dx;
