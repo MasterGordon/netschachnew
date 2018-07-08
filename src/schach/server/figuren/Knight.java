@@ -4,8 +4,8 @@ import schach.server.Brett;
 
 public class Knight extends Figur{
 
-	public Knight(int x, int y, Brett brett) {
-		super(x, y, brett);
+	public Knight(int x, int y, Brett brett,boolean white) {
+		super(x, y, brett, white);
 		symbol = 'N';
 	}
 

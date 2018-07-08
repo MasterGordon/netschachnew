@@ -4,8 +4,8 @@ import schach.server.Brett;
 
 public class Pawn extends Figur {
 
-	public Pawn(int x, int y, Brett brett) {
-		super(x, y, brett);
+	public Pawn(int x, int y, Brett brett,boolean white) {
+		super(x, y, brett, white);
 		symbol = 'P';
 	}
 

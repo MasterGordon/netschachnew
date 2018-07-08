@@ -4,8 +4,8 @@ import schach.server.Brett;
 
 public class Rook extends Figur {
 
-	public Rook(int x, int y, Brett brett) {
-		super(x, y, brett);
+	public Rook(int x, int y, Brett brett,boolean white) {
+		super(x, y, brett, white);
 		symbol = 'R';
 	}
 

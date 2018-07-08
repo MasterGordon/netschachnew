@@ -8,7 +8,8 @@ public abstract class Figur {
 	Brett brett;
 	Character symbol;
 
-	public Figur(int x, int y,Brett brett) {
+	public Figur(int x, int y,Brett brett,boolean white) {
+		this.white = white;
 		this.brett = brett;
 		brett.figuren[x][y] = this;
 		this.x = x;

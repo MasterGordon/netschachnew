@@ -1,15 +1,34 @@
 package schach;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.imageio.ImageIO;
+
+import schach.server.figuren.Knight;
+
 public class MainTest {
 	private static Connection conn;
 
+	public MainTest() {
+		try {
+			System.out.println(getClass().getResource("/resources/white_b.png").toURI());
+			ImageIO.read(new File(getClass().getResource("/resources/white_b.png").toURI()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
+		new MainTest();
+		
+		
         System.out.println(SchachUtil.hash("pw1"));
         System.out.println(SchachUtil.hash("pwdwa1"));
         System.out.println(SchachUtil.hash("pwdwa1"));

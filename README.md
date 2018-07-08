@@ -4,6 +4,11 @@
 #### From Client
 - login
 - register
+- move
+	- fromX
+	- fromY
+	- toX
+	- toY
 
 #### From Server
 - loginerror
