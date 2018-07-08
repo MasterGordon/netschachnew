@@ -28,7 +28,6 @@ public class MainTest {
 	public static void main(String[] args) {
 		new MainTest();
 		
-		
         System.out.println(SchachUtil.hash("pw1"));
         System.out.println(SchachUtil.hash("pwdwa1"));
         System.out.println(SchachUtil.hash("pwdwa1"));
@@ -37,6 +36,8 @@ public class MainTest {
         try {
         	String path = System.getenv("USERPROFILE");
 			conn =  DriverManager.getConnection("jdbc:sqlite:"+path+"/Documents/schachuser.db");
+			DriverManager.getConnection("jdbc:sqlite:" + path + "/Documents/schachuser.db");
+			DriverManager.getConnection("jdbc:sqlite:" + path + "/Documents/schachuser.db");
 			//String createDatabase = "CREATE DATABASE 'schach';";
 			String createUsers = "create table if not exists users ( `username` TEXT NOT NULL , `password` TEXT NOT NULL , `elo` INT NOT NULL , `id` INTEGER PRIMARY KEY AUTOINCREMENT, `friends` TEXT NOT NULL);";
 			Statement stat;

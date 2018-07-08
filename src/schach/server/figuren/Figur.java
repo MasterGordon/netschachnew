@@ -23,4 +23,9 @@ public abstract class Figur {
 	}
 
 	public abstract boolean bewegungErlaubt(int x, int y);
+
+	public boolean isWhite() {
+		// TODO Auto-generated method stub
+		return white;
+	}
 }

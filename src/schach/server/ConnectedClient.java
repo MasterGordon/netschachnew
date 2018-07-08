@@ -12,6 +12,7 @@ public class ConnectedClient {
 	String username;
 	UUID game;
 	SchachServer server;
+	String challengeing;
 	
 	public ConnectedClient(String ip,int port, SchachServer server) {
 		this.ip = ip;

@@ -18,6 +18,10 @@ Aufbau
 	- fromY
 	- toX
 	- toY
+- acceptchallenge
+	- who
+- challenge
+	- who
 
 #### From Server
 - loginerror
@@ -47,13 +51,16 @@ Aufbau
 	- replayid
 	- winner
 	- newelo
+- challenge
+	- who
+- useroffline
 
 ## ClientFeatures
 - [ ] Connect
 - [ ] Login
 - [ ] Register
 - [ ] Seach for Game
-- [ ] Challange
+- [ ] Challenge
 - [ ] Show Replay
 - [ ] Show Profile
 - [ ] Ingame

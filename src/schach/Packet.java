@@ -27,10 +27,11 @@ public class Packet {
 		return p;
 	}
 	
-	public void addData(String key,String value) {
+	public Packet addData(String key,String value) {
 		if(data.containsKey(key))
-			return;
+			return this;
 		data.put(key, value);
+		return this;
 	}
 	
 	public String save() {

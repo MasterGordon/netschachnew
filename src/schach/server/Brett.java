@@ -20,6 +20,8 @@ public class Brett {
 		this.uuid = uuid;
 		this.clientWhite = clientWhite;
 		this.clientBlack = clientBlack;
+		this.clientWhite.game = uuid;
+		this.clientBlack.game = uuid;
 		this.server = server;
 		figuren[0][0] = new Rook(0, 0, this, false);
 		figuren[1][0] = new Knight(1, 0, this, false);
@@ -54,6 +56,8 @@ public class Brett {
 		figuren[5][6] = new Pawn(5, 6, this, true);
 		figuren[6][6] = new Pawn(6, 6, this, true);
 		figuren[7][6] = new Pawn(7, 6, this, true);
+		clientWhite.send(Packet.create("boardinit").addData("color", "white").addData("board", toString()));
+		clientBlack.send(Packet.create("boardinit").addData("color", "black").addData("board", toString()));
 	}
 
 	public void move(String ip, int port, Packet packet) {
@@ -73,21 +77,33 @@ public class Brett {
 			cc.send(Packet.create("moveerror"));
 			return;
 		}
+		if (figuren[fromX][fromY].isWhite() == currentPlayer) {
+			cc.send(Packet.create("moveerror"));
+			return;
+		}
 		if (figuren[fromX][fromY].bewegungErlaubt(toX, toY)) {
-			if(figuren[toX][toY] instanceof King) {
-				//CURRENT WON
+			if (figuren[toX][toY] instanceof King) {
+				// CURRENT WON
+				Packet result = Packet.create("boardupdate");
+				result.addData("board", this.toString());
+				result.addData("current", getCurrent());
+				result.addData("lastX", toX + "");
+				result.addData("lastY", toY + "");
+				send(result);
+				replay.add(this.toString());
 				Packet gameover = Packet.create("gameover");
 				gameover.addData("winner", getCurrent());
 				gameover.addData("elo", "1000");
-			}else {
+				send(gameover);
+			} else {
 				figuren[toX][toY] = figuren[fromX][fromY];
 				figuren[fromX][fromY] = null;
 				currentPlayer = !currentPlayer;
 				Packet result = Packet.create("boardupdate");
 				result.addData("board", this.toString());
 				result.addData("current", getCurrent());
-				result.addData("lastX", toX+"");
-				result.addData("lastY", toY+"");
+				result.addData("lastX", toX + "");
+				result.addData("lastY", toY + "");
 				send(result);
 				replay.add(this.toString());
 			}
@@ -115,5 +131,5 @@ public class Brett {
 		clientBlack.send(packet);
 		clientWhite.send(packet);
 	}
-	
+
 }

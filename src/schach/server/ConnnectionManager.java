@@ -166,7 +166,7 @@ public class ConnnectionManager {
 
 	public void initDB() {
 		String createUsers = "create table if not exists users ( `username` TEXT NOT NULL , `password` TEXT NOT NULL , `elo` INT NOT NULL , `friends` TEXT NOT NULL);";
-		String createReplays = "CREATE TABLE replays ( `id` INT NOT NULL , `packet` MEDIUMTEXT NOT NULL );";
+		String createReplays = "CREATE TABLE replays ( `id` INTEGER PRIMARY KEY AUTOINCREMENT , `packet` MEDIUMTEXT NOT NULL );";
 		Statement stat;
 		try {
 			stat = conn.createStatement();
