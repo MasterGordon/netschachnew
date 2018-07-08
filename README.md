@@ -57,15 +57,15 @@ Aufbau
 - useroffline
 
 ## ClientFeatures
-- [ ] Connect
-- [ ] Login
-- [ ] Register
+- [x] Connect
+- [x] Login
+- [x] Register
 - [ ] Seach for Game
-- [ ] Challenge
+- [x] Challenge
 - [ ] Show Replay
 - [ ] Show Profile
-- [ ] Ingame
-- [ ] Logout
+- [x] Ingame
+- [x] Logout
 
 ## ServerFeatures
 - [x] Connect
