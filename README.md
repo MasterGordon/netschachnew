@@ -1,6 +1,15 @@
 # Network Schach Rework
 
 ## Actions
+Aufbau
+- PACKET
+	- KEY1
+		- POSSIBLEVALUE1
+		- POSSIBLEVALUE2
+	- KEY2
+		- POSSIBLEVALUE1
+		- POSSIBLEVALUE2
+
 #### From Client
 - login
 - register
@@ -19,8 +28,25 @@
 	- type:
 		- invalidusername
 		- usernametaken
+- moveerror
 - loginsuccess
 - registersuccess
+- boardinit
+	- color
+		- white
+		- black
+	- board
+- boardupdate
+	- current
+		- white
+		- black
+	- board
+	- lastX
+	- lastY
+- gameover
+	- replayid
+	- winner
+	- newelo
 
 ## ClientFeatures
 - [ ] Connect

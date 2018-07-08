@@ -1,6 +1,7 @@
 package schach.server;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import schach.Packet;
 import schach.server.figuren.*;
@@ -13,8 +14,12 @@ public class Brett {
 	ConnectedClient clientBlack;
 	boolean currentPlayer = true;
 	ArrayList<String> replay = new ArrayList<String>();
+	public UUID uuid;
 
-	public Brett(SchachServer server) {
+	public Brett(SchachServer server, ConnectedClient clientWhite, ConnectedClient clientBlack, UUID uuid) {
+		this.uuid = uuid;
+		this.clientWhite = clientWhite;
+		this.clientBlack = clientBlack;
 		this.server = server;
 		figuren[0][0] = new Rook(0, 0, this, false);
 		figuren[1][0] = new Knight(1, 0, this, false);
@@ -50,21 +55,65 @@ public class Brett {
 		figuren[6][6] = new Pawn(6, 6, this, true);
 		figuren[7][6] = new Pawn(7, 6, this, true);
 	}
-	
-	public void move(String ip,int port,Packet packet) {
+
+	public void move(String ip, int port, Packet packet) {
 		ConnectedClient cc = server.connectionManager.getClientFromIpPort(ip, port);
-		if(currentPlayer) {
-			if(cc.equals(clientBlack))
+		if (currentPlayer) {
+			if (cc.equals(clientBlack))
 				return;
-		}else {
-			if(cc.equals(clientWhite))
+		} else {
+			if (cc.equals(clientWhite))
 				return;
 		}
 		int fromX = Integer.parseInt(packet.get("fromX"));
 		int fromY = Integer.parseInt(packet.get("fromY"));
 		int toX = Integer.parseInt(packet.get("toX"));
 		int toY = Integer.parseInt(packet.get("toY"));
-		
-		
+		if (figuren[fromX][fromY] == null) {
+			cc.send(Packet.create("moveerror"));
+			return;
+		}
+		if (figuren[fromX][fromY].bewegungErlaubt(toX, toY)) {
+			if(figuren[toX][toY] instanceof King) {
+				//CURRENT WON
+				Packet gameover = Packet.create("gameover");
+				gameover.addData("winner", getCurrent());
+				gameover.addData("elo", "1000");
+			}else {
+				figuren[toX][toY] = figuren[fromX][fromY];
+				figuren[fromX][fromY] = null;
+				currentPlayer = !currentPlayer;
+				Packet result = Packet.create("boardupdate");
+				result.addData("board", this.toString());
+				result.addData("current", getCurrent());
+				result.addData("lastX", toX+"");
+				result.addData("lastY", toY+"");
+				send(result);
+				replay.add(this.toString());
+			}
+		}
 	}
+
+	public String toString() {
+		String string = "";
+		for (int y = 0; y < 8; y++) {
+			for (int x = 0; x < 8; x++) {
+				string += figuren[x][y].toString();
+			}
+		}
+		return string;
+	}
+
+	public String getCurrent() {
+		if (currentPlayer)
+			return "black";
+		else
+			return "white";
+	}
+
+	public void send(Packet packet) {
+		clientBlack.send(packet);
+		clientWhite.send(packet);
+	}
+	
 }
