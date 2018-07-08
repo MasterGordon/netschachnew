@@ -20,10 +20,20 @@ public class SchachServer extends Server{
 	}
 
 	@Override
-	public void processMessage(String pClientIP, int pClientPort, String pMessage) {
-		Packet packet = Packet.creatFromString(pClientIP);
+	public void processMessage(String ip, int port, String pMessage) {
+		Packet packet = Packet.creatFromString(pMessage);
 		if(packet.getAction().equals("login")) {
-			
+			connectionManager.login(ip, port, packet);
+		} else if(packet.getAction().equals("register")) {
+			connectionManager.register(ip, port, packet);
+		} else if(packet.getAction().equals("logout")) {
+			connectionManager.logout(ip, port);
+		} else if(packet.getAction().equals("move")) {
+			brettManager.move(ip, port, packet);
+		} else if(packet.getAction().equals("acceptchallenge")) {
+			brettManager.accept(ip, port, packet);
+		} else if(packet.getAction().equals("challenge")) {
+			brettManager.challenge(ip, port, packet);
 		}
 	}
 

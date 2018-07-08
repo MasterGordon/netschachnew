@@ -12,6 +12,7 @@ Aufbau
 
 #### From Client
 - login
+- logout
 - register
 - move
 	- fromX

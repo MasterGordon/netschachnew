@@ -8,48 +8,34 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Toolkit;
-import java.awt.Canvas;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.SystemColor;
 
 public class FrameMainClient extends JFrame {
 
 	private JPanel contentPane;
+	SchachClient client;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameMainClient frame = new FrameMainClient();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
-	public FrameMainClient() {
+	public FrameMainClient(SchachClient client) {
+		this.client = client;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrameMainClient.class.getResource("/resources/chess-icon.png")));
 		setTitle("Network Schach");
 		setResizable(false);
 		try 
 	    {
-	      UIManager.setLookAndFeel(new SyntheticaPlainLookAndFeel());
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	    } 
 	    catch (Exception e) 
 	    {
@@ -59,6 +45,7 @@ public class FrameMainClient extends JFrame {
 		setBounds(100, 100, 948, 586);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(Color.decode("#2E9CCA"));
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("User");

@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
@@ -47,7 +46,7 @@ public class FrameLogin extends JFrame {
 		setResizable(false);
 		try 
 	    {
-	      UIManager.setLookAndFeel(new SyntheticaPlainLookAndFeel());
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	    } 
 	    catch (Exception e) 
 	    {

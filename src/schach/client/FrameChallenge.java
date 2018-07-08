@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
@@ -42,38 +41,36 @@ public class FrameChallenge extends JFrame {
 	 * Create the frame.
 	 */
 	public FrameChallenge() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FrameMainClient.class.getResource("/resources/chess-icon.png")));
+		setIconImage(
+				Toolkit.getDefaultToolkit().getImage(FrameMainClient.class.getResource("/resources/chess-icon.png")));
 		setTitle("Network Schach - Challenge");
 		setResizable(false);
-		try 
-	    {
-	      UIManager.setLookAndFeel(new SyntheticaPlainLookAndFeel());
-	    } 
-	    catch (Exception e) 
-	    {
-	      e.printStackTrace();
-	    }
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 427, 133);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(10, 11, 197, 32);
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsername.setForeground(new Color(37, 39, 77));
 		lblUsername.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
 		contentPane.add(lblUsername);
-		
+
 		JButton lblRegister = new JButton("Challenge");
 		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegister.setForeground(new Color(37, 39, 77));
 		lblRegister.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
 		lblRegister.setBounds(10, 54, 404, 37);
 		contentPane.add(lblRegister);
-		
+
 		JTextField label = new JTextField("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setForeground(new Color(37, 39, 77));
