@@ -10,6 +10,8 @@ import java.util.HashMap;
 import schach.Packet;
 import schach.SchachUtil;
 
+
+
 public class ConnnectionManager {
 	HashMap<String, ConnectedClient> clientsIP = new HashMap<String, ConnectedClient>();
 	HashMap<String, ConnectedClient> clientsUsername = new HashMap<String, ConnectedClient>();
@@ -33,6 +35,28 @@ public class ConnnectionManager {
 		clientsIP.put(ip + ":" + "port", cc);
 	}
 
+	public void logout(String ip,int port) {
+		ConnectedClient cc = getClientFromIpPort(ip, port);
+		if (cc != null) {
+			try {
+				Statement stat = conn.createStatement();
+				stat.executeUpdate("update users SET elo = " + cc.elo + ", friends = '" + cc.getFriends()
+						+ "' WHERE username = '" + cc.username + "';");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			for (String s : clientsIP.keySet()) {
+				if (clientsIP.get(s).equals(cc))
+					clientsIP.remove(s);
+			}
+			for (String s : clientsUsername.keySet()) {
+				if (clientsUsername.get(s).equals(cc))
+					clientsUsername.remove(s);
+			}
+		}
+		connect(ip, port);
+	}
+	
 	public void disconnect(String ip, int port) {
 		ConnectedClient cc = getClientFromIpPort(ip, port);
 		if (cc != null) {
@@ -149,7 +173,6 @@ public class ConnnectionManager {
 			stat.executeUpdate(createUsers);
 			stat.executeUpdate(createReplays);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
