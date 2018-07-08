@@ -142,7 +142,7 @@ public class ConnnectionManager {
 			ResultSet rs = stat.executeQuery("select * from users WHERE 'username' = '" + username + "';");
 			if (rs.next()) {
 				Packet error = Packet.create("registererror");
-				error.addData("type", "invalidusername");
+				error.addData("type", "usernametaken");
 				cc.send(error);
 				rs.close();
 				return;

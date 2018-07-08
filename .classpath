@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="libs/sqlite-jdbc-3.23.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/syntheticaPlain.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/synthetica.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
