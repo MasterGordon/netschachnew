@@ -9,17 +9,26 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import schach.Packet;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrameRegister extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField username;
+	private JPasswordField password;
+	private JPasswordField password2;
 
 	/**
 	 * Launch the application.
@@ -81,32 +90,37 @@ public class FrameRegister extends JFrame {
 		contentPane.add(lblRepeatPassword);
 		
 		JButton lblRegister = new JButton("Register");
+		lblRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SchachClient.instance.send(Packet.create("register").addData("username", username.getText()).addData("password", password.getText()).save());
+			}
+		});
 		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegister.setForeground(new Color(37, 39, 77));
 		lblRegister.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
 		lblRegister.setBounds(10, 140, 404, 37);
 		contentPane.add(lblRegister);
 		
-		JTextField label = new JTextField("");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setForeground(new Color(37, 39, 77));
-		label.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
-		label.setBounds(217, 11, 197, 32);
-		contentPane.add(label);
+		username = new JTextField("");
+		username.setHorizontalAlignment(SwingConstants.CENTER);
+		username.setForeground(new Color(37, 39, 77));
+		username.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
+		username.setBounds(217, 11, 197, 32);
+		contentPane.add(username);
 		
-		JPasswordField label_1 = new JPasswordField("");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setForeground(new Color(37, 39, 77));
-		label_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
-		label_1.setBounds(217, 54, 197, 32);
-		contentPane.add(label_1);
+		password = new JPasswordField("");
+		password.setHorizontalAlignment(SwingConstants.CENTER);
+		password.setForeground(new Color(37, 39, 77));
+		password.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
+		password.setBounds(217, 54, 197, 32);
+		contentPane.add(password);
 		
-		JPasswordField label_3 = new JPasswordField("");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		label_3.setForeground(new Color(37, 39, 77));
-		label_3.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
-		label_3.setBounds(217, 97, 197, 32);
-		contentPane.add(label_3);
+		password2 = new JPasswordField("");
+		password2.setHorizontalAlignment(SwingConstants.CENTER);
+		password2.setForeground(new Color(37, 39, 77));
+		password2.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
+		password2.setBounds(217, 97, 197, 32);
+		contentPane.add(password2);
 	}
 
 }

@@ -32,7 +32,7 @@ public class ConnnectionManager {
 
 	public void connect(String ip, int port) {
 		ConnectedClient cc = new ConnectedClient(ip, port, server);
-		clientsIP.put(ip + ":" + "port", cc);
+		clientsIP.put(ip + ":" + port, cc);
 	}
 
 	public void logout(String ip,int port) {
@@ -94,7 +94,7 @@ public class ConnnectionManager {
 		String dbFriends = "";
 		try {
 			stat = conn.createStatement();
-			ResultSet rs = stat.executeQuery("select * from users WHERE 'username' = '" + username + "';");
+			ResultSet rs = stat.executeQuery("select * from users WHERE username = '" + username + "';");
 			while (rs.next()) {
 				dbPasswordHash = rs.getString("password");
 				dbElo = rs.getInt("elo");
@@ -139,7 +139,7 @@ public class ConnnectionManager {
 		Statement stat;
 		try {
 			stat = conn.createStatement();
-			ResultSet rs = stat.executeQuery("select * from users WHERE 'username' = '" + username + "';");
+			ResultSet rs = stat.executeQuery("select * from users WHERE username = '" + username + "';");
 			if (rs.next()) {
 				Packet error = Packet.create("registererror");
 				error.addData("type", "usernametaken");
@@ -166,7 +166,7 @@ public class ConnnectionManager {
 
 	public void initDB() {
 		String createUsers = "create table if not exists users ( `username` TEXT NOT NULL , `password` TEXT NOT NULL , `elo` INT NOT NULL , `friends` TEXT NOT NULL);";
-		String createReplays = "CREATE TABLE replays ( `id` INTEGER PRIMARY KEY AUTOINCREMENT , `packet` MEDIUMTEXT NOT NULL );";
+		String createReplays = "CREATE TABLE if not exists replays ( `id` INTEGER PRIMARY KEY AUTOINCREMENT , `packet` MEDIUMTEXT NOT NULL );";
 		Statement stat;
 		try {
 			stat = conn.createStatement();

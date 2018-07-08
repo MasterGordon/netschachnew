@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import schach.Packet;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -16,11 +18,20 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrameMainClient extends JFrame {
 
 	private JPanel contentPane;
 	SchachClient client;
+	private CanvasBrett canvas;
+	public JMenuItem mntmRegister;
+	public JMenuItem mntmLogin;
+	public JMenuItem mntmLogout;
+	public JMenu mnPlay;
+	public JMenu mnElo;
+	JMenu username;
 
 	/**
 	 * Launch the application.
@@ -45,37 +56,83 @@ public class FrameMainClient extends JFrame {
 		setBounds(100, 100, 948, 586);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		menuBar.setBackground(Color.decode("#2E9CCA"));
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("User");
-		menuBar.add(mnNewMenu);
+		username = new JMenu("Login / Register");
+		username.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+		menuBar.add(username);
 		
-		JMenuItem mntmRegister = new JMenuItem("Register");
-		mnNewMenu.add(mntmRegister);
+		mntmRegister = new JMenuItem("Register");
+		mntmRegister.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+		mntmRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				client.frameRegister.setVisible(true);
+				setVisible(false);
+			}
+		});
+		username.add(mntmRegister);
 		
-		JMenuItem mntmLogin = new JMenuItem("Login");
-		mnNewMenu.add(mntmLogin);
+		mntmLogin = new JMenuItem("Login");
+		mntmLogin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+		mntmLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				client.frameLogin.setVisible(true);
+				setVisible(false);
+			}
+		});
+		username.add(mntmLogin);
 		
-		JMenuItem mntmLogout = new JMenuItem("Logout");
-		mnNewMenu.add(mntmLogout);
+		mntmLogout = new JMenuItem("Logout");
+		mntmLogout.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+		mntmLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				client.send(Packet.create("logout").save());
+				mnPlay.setVisible(false);
+				mntmLogout.setVisible(false);
+				mnElo.setVisible(false);
+				mntmRegister.setVisible(true);
+				mntmLogin.setVisible(true);
+				username.setText("Login / Register");
+				client.isLoggedIn = false;
+			}
+		});
+		username.add(mntmLogout);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
-		mnNewMenu.add(mntmExit);
+		mntmExit.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		username.add(mntmExit);
 		
-		JMenu mnPlay = new JMenu("Play");
+		mnPlay = new JMenu("Play");
+		mnPlay.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		menuBar.add(mnPlay);
 		
 		JMenuItem mntmSearch = new JMenuItem("Search");
+		mntmSearch.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		mnPlay.add(mntmSearch);
 		
 		JMenuItem mntmChallange = new JMenuItem("Challange");
+		mntmChallange.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				client.frameChallenge.setVisible(true);
+				setVisible(false);
+			}
+		});
+		mntmChallange.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		mnPlay.add(mntmChallange);
 		
 		JMenu mnNewMenu_1 = new JMenu("Load Replay");
+		mnNewMenu_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		menuBar.add(mnNewMenu_1);
 		
-		JMenu mnElo = new JMenu("Elo: 1000");
+		mnElo = new JMenu("Elo: 1000");
+		mnElo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		menuBar.add(mnElo);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#AAABB8"));
@@ -83,7 +140,7 @@ public class FrameMainClient extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		CanvasBrett canvas = new CanvasBrett("rnbqkbnrpppppppp00000000000000000000000000000000PPPPPPPPRNBQKBNR");
+		canvas = new CanvasBrett("rnbqkbnrpppppppp00000000000000000000000000000000PPPPPPPPRNBQKBNR");
 		canvas.setBounds(10, 10, 512, 512);
 		contentPane.add(canvas);
 		
@@ -115,5 +172,9 @@ public class FrameMainClient extends JFrame {
 		lblYou.setForeground(Color.decode("#25274D"));
 		lblTimeLeft.setForeground(Color.decode("#25274D"));
 		lblTime.setForeground(Color.decode("#25274D"));
+	}
+	
+	public void updateCanvas(String s) {
+		
 	}
 }

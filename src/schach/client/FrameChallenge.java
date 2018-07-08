@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import schach.Packet;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
@@ -16,10 +18,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrameChallenge extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField label;
 
 	/**
 	 * Launch the application.
@@ -65,13 +70,21 @@ public class FrameChallenge extends JFrame {
 		contentPane.add(lblUsername);
 
 		JButton lblRegister = new JButton("Challenge");
+		lblRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SchachClient.instance.send(Packet.create("challenge").addData("who", label.getText()).save());
+				SchachClient.instance.frameMainClient.setVisible(true);
+				label.setText("");
+				setVisible(false);
+			}
+		});
 		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegister.setForeground(new Color(37, 39, 77));
 		lblRegister.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
 		lblRegister.setBounds(10, 54, 404, 37);
 		contentPane.add(lblRegister);
 
-		JTextField label = new JTextField("");
+		 label = new JTextField("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setForeground(new Color(37, 39, 77));
 		label.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 24));
