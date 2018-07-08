@@ -61,10 +61,10 @@ Aufbau
 - [x] Login
 - [x] Register
 - [ ] Seach for Game
-- [x] Challenge
+- [ ] Challenge
 - [ ] Show Replay
 - [ ] Show Profile
-- [x] Ingame
+- [ ] Ingame
 - [x] Logout
 
 ## ServerFeatures
@@ -72,9 +72,9 @@ Aufbau
 - [x] Login
 - [x] Register
 - [ ] Seach for Game
-- [ ] Challange
+- [x] Challange
 - [ ] Show Replay
 - [ ] Show Profile
-- [ ] Ingame
+- [x] Ingame
 - [x] Logout
-- [ ] CreateGame
+- [x] CreateGame
